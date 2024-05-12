@@ -1,3 +1,23 @@
+# vuetimeaxisdemo
+
+## 下载
+```shell
+npm i vuetimeaxisdemo
+```
+
+## 使用
+
+`main.js`
+
+```js
+import vueTimeAxisDemo from 'vuetimeaxisdemo'
+import  'vuetimeaxisdemo/vueTimeAxisDemo.css'
+Vue.use(vueTimeAxisDemo);
+```
+
+`App.vue`
+
+```vue
 <template>
   <div id="app">
     <vueTimeAxis :option="option" />
@@ -5,13 +25,8 @@
 </template>
 
 <script>
-import vueTimeAxis from "./package/vueTimeAxisDemo";
-
 export default {
   name: "App",
-  components: {
-    vueTimeAxis,
-  },
   data() {
     return {
       option: {
@@ -49,3 +64,5 @@ export default {
   overflow: auto;
 }
 </style>
+```
+可以拖动蓝色块进行调整，并实时更新`start`和`end`属性

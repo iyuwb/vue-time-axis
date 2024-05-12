@@ -44,27 +44,27 @@ export default {
       this.currentItem = item;
       this.id = item.id;
       this.isMove = true;
-      console.log(e, "down");
     },
   },
   mounted() {
     const el = document.querySelector("#vueTimeAxis" + this.key);
     el.onmousemove = (e) => {
-      if (!this.isMove) return;
-      console.log(e, "move");
-      if (this.timeID) return;
+      if (!this.isMove || this.timeID) return;
+      // 减少触发次数
       this.timeID = setTimeout(() => {
         this.timeID = null;
-      }, 33);
+      }, 16);
       const step = this.option.width / (this.option.max - this.option.min);
       let data = (e.clientX - this.x) / step;
       this.currentItem.start += data;
       this.currentItem.end += data;
       this.x = e.clientX;
     };
-    el.onmouseup = (e) => {
+    el.onmouseup = () => {
       this.isMove = false;
-      console.log(e, "up");
+    };
+    el.onmouseleave = () => {
+      this.isMove = false;
     };
   },
   created() {},
@@ -98,5 +98,6 @@ export default {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  text-align: center;
 }
 </style>
