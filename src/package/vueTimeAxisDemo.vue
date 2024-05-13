@@ -56,8 +56,18 @@ export default {
       }, 16);
       const step = this.option.width / (this.option.max - this.option.min);
       let data = (e.clientX - this.x) / step;
-      this.currentItem.start += data;
-      this.currentItem.end += data;
+      //拖拽移动限制 不能超出最小最大值
+      let spacing = this.currentItem.end - this.currentItem.start;
+      if (this.currentItem.end + data > this.option.max) {
+        this.currentItem.end = this.option.max;
+        this.currentItem.start = this.currentItem.end - spacing;
+      } else if (this.currentItem.start + data < this.option.min) {
+        this.currentItem.start = this.option.min;
+        this.currentItem.end = this.currentItem.start + spacing;
+      } else {
+        this.currentItem.start += data;
+        this.currentItem.end += data;
+      }
       this.x = e.clientX;
     };
     el.onmouseup = () => {
